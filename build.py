@@ -17,6 +17,9 @@ main = re.sub(r' tabindex="0"| ctxtmenu_counter="\d+"| class="MathJax CtxtMenu_A
 def _wide(m):
     return m.group(1) + (' tabindex="0"' if float(m.group(3)) > 18 else '') + m.group(2)
 main = re.sub(r'(<mjx-container class="MathJax"[^>]*?)(><svg[^>]*?width="([\d.]+)ex")', _wide, main)
+# pomocné atribúty MathJaxu (data-mml-node, data-c, data-mjx-texclass…) prehliadač na vykreslenie nepotrebuje
+main = re.sub(r' data-(?:mml-node|c|mjx-texclass|semantic-[a-z-]+|latex)="[^"]*"', '', main)
+cache = re.sub(r' data-c="[^"]*"', '', cache)
 main = main.replace('<section id="s0">', '<div id="blok-a" class="anchor"></div>\n<section id="s0">', 1)
 main = main.replace('<section id="s10">', '<div id="blok-b" class="anchor"></div>\n<section id="s10">', 1)
 
@@ -59,9 +62,9 @@ CSS = """
   --bg:#f6f8f8; --panel:#fff; --ink:#132429; --muted:#566a70; --line:#d8e0e2;
   --accent:#0d6e66; --accent-d:#095650; --accent-soft:#dff1ee; --warn-soft:#fff3dc; --warn:#7f5300; --econ-soft:#e9edf7; --econ:#2f4a8f;
   --hero1:#0d6e66; --hero2:#0b4f5c;
-  --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --font-head:"IBM Plex Serif",Georgia,"Times New Roman",serif;
-  --font-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --font-mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -184,7 +187,7 @@ html = f"""<!doctype html>
 <meta name="theme-color" content="#0d6e66">
 <link rel="icon" href="{ICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Serif:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Serif:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&amp;display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600&amp;display=swap"></noscript>
 {mjx_styles}
 <style>{CSS}</style>
 </head>
