@@ -184,7 +184,7 @@ html = f"""<!doctype html>
 <meta name="theme-color" content="#0d6e66">
 <link rel="icon" href="{ICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Serif:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Serif:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Serif:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap"></noscript>
 {mjx_styles}
 <style>{CSS}</style>
 </head>
